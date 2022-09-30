@@ -10,6 +10,9 @@ project(PointCloudBase_pkg)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  pcl_conversions
+  pcl_ros
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES PointCloudBase_pkg
-#  CATKIN_DEPENDS roscpp std_msgs
+  CATKIN_DEPENDS pcl_conversions pcl_ros roscpp sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -115,14 +118,25 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
   ${catkin_INCLUDE_DIRS}
+  
 )
+include_directories(
+  ${PCL_INCLUDE_DIRS}
+)
+include_directories(
+  ${EIGEN3_INCLUDE_DIRS}
+)
+
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/PointCloudBase_pkg.cpp
 # )
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -133,7 +147,10 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/PointCloudBase_pkg_node.cpp)
-
+add_executable(write_node src/write_pcd.cpp
+)
+add_executable(read_node src/read_pcd.cpp
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -148,6 +165,12 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(write_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(read_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
