@@ -151,6 +151,10 @@ add_executable(write_node src/write_pcd.cpp
 )
 add_executable(read_node src/read_pcd.cpp
 )
+add_executable(voxel_grid_node src/voxel_grid.cpp
+)
+add_executable(example_node src/example.cpp
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -171,6 +175,13 @@ target_link_libraries(write_node
 target_link_libraries(read_node
   ${catkin_LIBRARIES}
 )
+target_link_libraries(voxel_grid_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(example_node
+  ${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##
