@@ -155,6 +155,8 @@ add_executable(voxel_grid_node src/voxel_grid.cpp
 )
 add_executable(example_node src/example.cpp
 )
+add_executable(demopcl_node src/demopcl.cpp
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -181,7 +183,9 @@ target_link_libraries(voxel_grid_node
 target_link_libraries(example_node
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(demopcl_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
